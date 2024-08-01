@@ -1,0 +1,42 @@
+.loading {
+  text-align: center;
+  font-size: 24px;
+  color: #8C9199;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.noScroll {
+  overflow-y: hidden;
+}
+
+.scrollListWrap {
+  overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  .empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .emptyText {
+      font-size: 26px;
+      color: #666666;
+    }
+  }
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .loadingContainerText {
+      font-size: 32px;
+      color: #8C9199;
+    }
+  }
+}

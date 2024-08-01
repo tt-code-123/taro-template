@@ -1,0 +1,59 @@
+{
+  "plugins": ["prettier", "import"],
+  "extends": ["plugin:import/recommended", "taro/react", "prettier", "plugin:prettier/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": "error",
+    "import/no-commonjs": "warn",
+    "import/order":["error",{
+      // 优先级顺序 内置模块、外部模块、内部模块
+      "groups": ["builtin", "external", "internal"],
+      "pathGroups": [
+        {
+          "pattern": "react",
+          "group": "external",
+          "position": "before"
+        },
+        {
+          "pattern": "@/**",
+          "group": "internal",
+          "position": "after"
+        },
+        {
+          "pattern": "@tarojs/components",
+          "group": "external",
+          "position": "after"
+        },
+        {
+          "pattern": "@tarojs/taro",
+          "group": "external",
+          "position": "before"
+        },
+        {
+          "pattern": "@/components/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "../**",
+          "group": "sibling",
+          "position": "after"
+        },
+        {
+          "pattern": "./**",
+          "group": "sibling",
+          "position": "after"
+        }
+      ],
+      "pathGroupsExcludedImportTypes": ["react", "./**"],
+      "alphabetize": {
+        "order": "asc",
+        "caseInsensitive": true
+      },
+      "newlines-between": "always",
+      "distinctGroup": false
+    }]
+  }
+}

@@ -1,0 +1,39 @@
+.headerNavigationWrap {
+  position: absolute;
+  z-index: 99999;
+  width: 100%;
+  .navigationBarLeft {
+    position: absolute;
+    left: 16px;
+    height: 100%;
+  }
+  .headerOperate {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 32px;
+    left: 16px;
+    padding: 0 28px;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    .divider {
+      height: 26px;
+      margin: 0 16px 0 10px;
+      width: 2px;
+      background-color: rgba(0, 0, 0, 0.20);
+    }
+  }
+  .headerTitle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #212121;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 64px;
+  }
+}
