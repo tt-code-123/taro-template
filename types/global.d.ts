@@ -23,5 +23,9 @@ declare namespace NodeJS {
      * @see https://taro-docs.jd.com/docs/next/env-mode-config#特殊环境变量-taro_app_id
      */
     TARO_APP_ID: string;
+    /** 静态资源服务器地址 */
+    TARO_APP_STATIC_URL: string;
+    /** 接口请求地址 */
+    TARO_APP_REQUEST_URL: string;
   }
 }
