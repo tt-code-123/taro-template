@@ -24,9 +24,10 @@ export interface IRefProps<T> {
 }
 
 type PageData<T> = {
-  index: number;
-  size: number;
-  total: number;
+  page: {
+    size: number;
+    total: number;
+  };
   content: T[];
 };
 
@@ -47,7 +48,7 @@ interface IProps<T>
   /**
    * 当请求结束执行的回调
    */
-  onRequestEnd?: (p: { data: T[] }) => void;
+  onRequestEnd?: (params: { data: T[] }) => void;
   /**
    * 获取数据
    */
@@ -92,18 +93,14 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
   }));
 
   useDidShow(() => {
-    refetchData();
+    refetchAllData();
   });
 
   function refetchAllData() {
     const pageSize = page.size * page.index;
-    setPage({
-      index: 1,
-      size: defaultSize,
-    });
     refetchData({
-      s: pageSize,
-      i: 1,
+      fetchSize: pageSize,
+      fetchIndex: 1,
       reset: true,
     });
     return Promise.resolve(true);
@@ -124,16 +121,23 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
     return list;
   }
 
-  async function refetchData(params?: { reset?: boolean; s?: number; i?: number }) {
+  async function refetchData(params?: {
+    reset?: boolean;
+    fetchSize?: number;
+    fetchIndex?: number;
+  }) {
     setLoading(true);
-    const { reset, s, i } = params || {};
+    const { reset, fetchSize, fetchIndex } = params || {};
     const { index, size } = page;
     try {
       const res = await request({
-        index: i || (reset ? 1 : index),
-        size: s || size,
+        index: fetchIndex || (reset ? 1 : index),
+        size: fetchSize || size,
       });
-      const { content, total } = res;
+      const {
+        content,
+        page: { total },
+      } = res;
       let allData: any[] = [];
       if (reset) {
         allData = [...content];
@@ -160,7 +164,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
       index: pre.index + 1,
     }));
     await refetchData({
-      i: pageIndex + 1,
+      fetchIndex: pageIndex + 1,
     });
   }
 
@@ -196,7 +200,11 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
       showScrollbar={false}
       lowerThreshold={lowerThreshold}
       onScrollToLower={handleScrollToLower}
-      style={{ ...((style as React.CSSProperties) || {}), height: height }}
+      style={{
+        ...((style as React.CSSProperties) || {}),
+        height: height,
+        textAlign: col === 1 ? 'left' : 'center',
+      }}
       className={`${styles.scrollListWrap} ${!isScroll ? styles.noScroll : ''} ${className || ''}`}
       {...remainProps}
     >
@@ -220,7 +228,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
               isValidElement(emptyDescription) ? (
                 emptyDescription
               ) : (
-                <Text className={styles.emptyText}>{emptyDescription || '暂无推荐'}</Text>
+                <Text className={styles.emptyText}>{emptyDescription || '暂无数据'}</Text>
               )
             }
             size="small"
@@ -236,7 +244,11 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
         )
       ) : (
         list.map((item, index) => (
-          <View key={index} style={{ width: `${100 / col}%` }}>
+          <View
+            key={index}
+            style={{ width: `${100 / col - (col === 1 ? 0 : 2)}%` }}
+            className={col === 1 ? '' : styles.itemWrap}
+          >
             {renderItem(item, index)}
           </View>
         ))

@@ -2,6 +2,7 @@
   text-align: center;
   font-size: 24px;
   color: #8C9199;
+  margin-top: 16px;
 }
 
 .list {
@@ -19,6 +20,12 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  .itemWrap {
+    display: inline-block;
+    &:nth-child(2n-1){
+      margin-right: 25px;
+    }
+  }
   .empty {
     display: flex;
     justify-content: center;
