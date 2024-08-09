@@ -1,4 +1,12 @@
-import React, { forwardRef, isValidElement, useImperativeHandle, useMemo, useState } from 'react';
+import React, {
+  forwardRef,
+  isValidElement,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useDidShow } from '@tarojs/taro';
 import { ConfigProvider, Loading, Empty } from '@nutui/nutui-react-taro';
 import { View, Text, Image, ScrollView, ScrollViewProps } from '@tarojs/components';
@@ -41,6 +49,11 @@ interface IProps<T>
   emptyIcon?: React.ReactNode;
   emptyDescription?: React.ReactNode;
   /**
+   * 当页面重新获得焦点是否重新拉取一遍数据
+   * @default true
+   */
+  autoRefetch?: boolean;
+  /**
    * 列数
    * @default 1
    */
@@ -66,6 +79,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
     lowerThreshold = 150,
     col = 1,
     isScroll = true,
+    autoRefetch = true,
     loadingText,
     loadMoreText,
     emptyIcon,
@@ -85,6 +99,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
     size: defaultSize,
   });
   const [pageTotal, setPageTotal] = useState(0);
+  const isMountedRef = useRef(false);
 
   useImperativeHandle(ref, () => ({
     refetchAllData,
@@ -92,8 +107,16 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
     getDataSource,
   }));
 
+  useEffect(() => {
+    // 第一次挂载
+    isMountedRef.current = true;
+    refetchData();
+  }, []);
+
   useDidShow(() => {
-    refetchAllData();
+    if (isMountedRef.current && autoRefetch) {
+      refetchAllData();
+    }
   });
 
   function refetchAllData() {
