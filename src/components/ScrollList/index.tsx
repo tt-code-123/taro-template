@@ -255,6 +255,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
               )
             }
             size="small"
+            style={{ width: '100%' }}
             image={
               emptyIcon ? (
                 emptyIcon
