@@ -29,3 +29,9 @@ declare namespace NodeJS {
     TARO_APP_REQUEST_URL: string;
   }
 }
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    'wx-open-launch-weapp': any; // You can specify the props here if needed
+  }
+}

@@ -192,7 +192,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
   }
 
   const loadingRender = useMemo(() => {
-    return loading && list.length ? (
+    return loading && list.length && hasMore ? (
       isValidElement(loadingText) ? (
         loadingText
       ) : (
@@ -201,7 +201,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
         </View>
       )
     ) : null;
-  }, [loading, list.length, loadingText]);
+  }, [loading, list.length, loadingText, hasMore]);
 
   const loadingMoreRender = useMemo(() => {
     return !hasMore && pageTotal !== 0 ? (
