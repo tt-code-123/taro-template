@@ -19,8 +19,8 @@ const Card: React.FC<React.PropsWithChildren<IProps>> = ({
     <View className={`${styles.cardWrap} ${className || ''}`}>
       {headerLeft || headerRight ? (
         <View className={styles.cardHeader}>
-          {headerLeft || null}
-          {headerRight || null}
+          <View>{headerLeft || null}</View>
+          <View>{headerRight || null}</View>
         </View>
       ) : null}
       {children}
