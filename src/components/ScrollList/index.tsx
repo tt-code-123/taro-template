@@ -178,7 +178,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
   }
 
   async function handleScrollToLower() {
-    if (!hasMore) {
+    if (!hasMore || loading) {
       return;
     }
     const pageIndex = page.index;
