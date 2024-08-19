@@ -1,0 +1,55 @@
+/* Logo 字体 */
+@font-face {
+  font-family: "iconfont"; /* Project id 4657416 */
+  src: url('//at.alicdn.com/t/c/font_4657416_qz9v7vggwal.woff2?t=1724031587354') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4657416_qz9v7vggwal.woff?t=1724031587354') format('woff'),
+       url('//at.alicdn.com/t/c/font_4657416_qz9v7vggwal.ttf?t=1724031587354') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 28px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-loading:before {
+  content: "\e617";
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  margin-right: 12px;
+  animation: loading 1s linear infinite;
+}
+
+
+.loading-container {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #8C9199;
+  height: 88px;
+  font-size: 28px;
+}
+
+.load-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8C8C8C;
+}
+
+.load-wrap {
+  text-align: center;
+}

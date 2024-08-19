@@ -1,0 +1,89 @@
+/* components/grid-tile-img/index.wxss */
+.grid-scroll-item {
+  position: relative;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.grid-scroll-item-image {
+    width: 100%;
+  }
+
+.grid-scroll-item-content {
+  padding: 4px 16px 16px 16px;
+}
+
+.grid-scroll-item-content-title {
+  color: #3d3d3d;
+  font-size: 28px;
+  line-height: 44px;
+  font-weight: bold;
+  max-height: 88px;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.grid-scroll-item-content-des {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.grid-scroll-item-content-des-user {
+  display: flex;
+  align-items: center;
+}
+
+.grid-scroll-item-content-des-avatar {
+  width: 40px;
+  height: 40px;
+  margin-right: 16px;
+  border-radius: 50%;
+}
+
+.grid-scroll-item-content-des-name {
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: normal;
+  max-width: 150px;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
+}
+
+.grid-scroll-item-content-des-wrap {
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.grid-scroll-item-content-des-img {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.grid-scroll-item-collection-image {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 72px;
+  height: 40px;
+}
+
+.grid-scroll-item-play-icon {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  right: 24px;
+  top: 24px;
+}

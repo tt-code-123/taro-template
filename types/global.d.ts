@@ -33,5 +33,35 @@ declare namespace NodeJS {
 declare namespace JSX {
   interface IntrinsicElements {
     'wx-open-launch-weapp': any; // You can specify the props here if needed
+    'grid-scroll-view': {
+      /**
+       * 交叉轴元素数量
+       */
+      crossAxisCount?: number;
+      /**
+       * 交叉轴方向间隔
+       */
+      crossAxisGap?: number;
+      /**
+       * 主轴方向间隔
+       */
+      mainAxisGap?: number;
+      /**
+       * 滚动高度
+       */
+      height: number;
+      /**
+       * 距底部多远时，触发 scrolltolower 事件
+       */
+      lowerThreshold?: number;
+      /**
+       * 默认分页条数
+       */
+      defaultPageSize?: number;
+      /**
+       * 获取数据
+       */
+      request: (page: number) => Promise<any>;
+    };
   }
 }

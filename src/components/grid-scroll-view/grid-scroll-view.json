@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "grid-scroll-item": "./components/grid-scroll-item/index"
+  }
+}

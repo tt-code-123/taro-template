@@ -197,7 +197,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
         loadingText
       ) : (
         <View className={styles.loading}>
-          <Loading>{loadingText || '努力加载中...'} </Loading>
+          <Loading>{loadingText || '(ง •̀_•́)ง努力加载中...'} </Loading>
         </View>
       )
     ) : null;
@@ -209,7 +209,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
         loadMoreText
       ) : (
         <View className={styles.loading}>
-          <Text>{loadMoreText || '没有更多啦...'}</Text>
+          <Text>{loadMoreText || '(￣▽￣)ノ已经到底啦'}</Text>
         </View>
       )
     ) : null;

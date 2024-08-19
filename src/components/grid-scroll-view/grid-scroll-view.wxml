@@ -1,0 +1,25 @@
+<scroll-view scroll-y="true" style="height: {{height}}px; width: calc(100% - 16px); padding:8px;" type="custom" show-scrollbar="false" enhanced="true" lower-threshold="{{lowerThreshold}}" scroll-with-animation="true" bindscrolltolower="onScrollToLower">
+  
+  <grid-view wx:if="{{loadedDataList.length}}" type="masonry" cross-axis-count="{{crossAxisCount}}" cross-axis-gap="{{crossAxisGap}}" main-axis-gap="{{mainAxisGap}}">
+    <view wx:for="{{loadedDataList}}" wx:key="id">
+      <grid-scroll-item item="{{item}}"></grid-scroll-item>
+    </view>
+  </grid-view>
+  <view wx:else class="load-container" style="height: {{height}}px;">
+    <view wx:if="{{loading}}" class="load-wrap">
+      <view class="iconfont icon-loading loading"></view>
+      <view>努力加载中...</view>
+    </view>
+    <view wx:else>暂无数据</view>
+  </view>
+
+  <view wx:if="{{loading && loadedDataList.length && hasMore}}" class="loading-container">
+    <view class="iconfont icon-loading loading"></view>
+    <view class="loading-text">(ง •̀_•́)ง努力加载中...</view>
+  </view>
+
+  <view wx:if="{{!hasMore && page.totalRecords !== 0}}" class="loading-container">
+    <view class="loading-text">- 别拔啦，没有更多苗苗啦 -</view>
+  </view>
+</scroll-view>   
+ 
