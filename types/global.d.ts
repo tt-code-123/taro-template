@@ -61,7 +61,14 @@ declare namespace JSX {
       /**
        * 获取数据
        */
-      request: (page: number) => Promise<any>;
+      onRequest: (params: {
+        detail: {
+          pageSize: number;
+          pageCurrent: number;
+          onSuccess: (val: any) => void;
+          onError: () => void;
+        };
+      }) => Promise<any>;
     };
   }
 }
