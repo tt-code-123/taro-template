@@ -66,6 +66,13 @@ export function getWindowHeight(showTabBar = true) {
   return windowHeight;
 }
 
+export function getSafeWindowHeight(showTabBar = true) {
+  const windowHeight = getWindowHeight(showTabBar);
+  const windowInfo = Taro.getWindowInfo();
+
+  return windowHeight - (judgePlatform('h5') ? 0 : windowInfo.safeArea?.top!);
+}
+
 export function sleep(time: number): Promise<unknown> {
   return new Promise((resolve) => {
     setTimeout(resolve, time);
