@@ -8,7 +8,7 @@
   <view wx:else class="load-container" style="height: {{height}}px;">
     <view wx:if="{{loading}}" class="load-wrap">
       <view class="iconfont icon-loading loading"></view>
-      <view>努力加载中...</view>
+      <view>(ง •̀_•́)ง努力加载中...</view>
     </view>
     <view wx:else>暂无数据</view>
   </view>
@@ -19,7 +19,7 @@
   </view>
 
   <view wx:if="{{!hasMore && page.totalRecords !== 0}}" class="loading-container">
-    <view class="loading-text">- 别拔啦，没有更多苗苗啦 -</view>
+    <view class="loading-text">(￣▽￣)ノ已经到底啦</view>
   </view>
 </scroll-view>   
  

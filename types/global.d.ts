@@ -34,6 +34,7 @@ declare namespace JSX {
   interface IntrinsicElements {
     'wx-open-launch-weapp': any; // You can specify the props here if needed
     'grid-scroll-view': {
+      id?: string;
       /**
        * 交叉轴元素数量
        */
@@ -58,6 +59,10 @@ declare namespace JSX {
        * 默认分页条数
        */
       defaultPageSize?: number;
+      /**
+       * 滚动时触发
+       */
+      onScroll?: (e) => void;
       /**
        * 获取数据
        */

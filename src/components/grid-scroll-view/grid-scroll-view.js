@@ -51,6 +51,10 @@ Component({
       type: Function,
       value: null,
     },
+    scroll: {
+      type: Function,
+      value: null,
+    },
   },
   /**
    * 页面的初始数据
@@ -169,7 +173,7 @@ Component({
         pageSize: fetchSize || pageSize,
         onSuccess(res) {
           const { records, totalRecords } = res;
-          const { errorLoadCount } = that.data;
+          const { errorLoadCount, loadCount } = that.data;
           let allData = [];
           if (reset) {
             allData = [...records];
@@ -197,6 +201,7 @@ Component({
               'page.totalRecords': totalRecords,
               hasMore: allData.length < totalRecords,
               errorLoadCount: reset ? 0 : errorLoadCount,
+              loadCount: reset ? 0 : loadCount,
             },
             () => {
               if (!reset) {
@@ -220,7 +225,7 @@ Component({
                     that.onImageLoad(item, index);
                   });
               } else {
-                allData.forEach((item) => {
+                allData.forEach((item, index) => {
                   that.onImageLoad(item, index, true);
                 });
               }
@@ -247,6 +252,17 @@ Component({
       await this.refetchData({
         fetchIndex: pageIndex + 1,
       });
+    },
+    onScroll(e) {
+      this.triggerEvent('scroll', e);
+    },
+    reload() {
+      this.setData({
+        dataList: [],
+        loadedDataList: [],
+        showDataList: [],
+      });
+      this.refetchData({ reset: true });
     },
   },
   /**
