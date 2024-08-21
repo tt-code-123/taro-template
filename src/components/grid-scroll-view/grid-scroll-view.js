@@ -1,5 +1,12 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
+// 获取该组件实例，调用该组件方法
+// useEffect(() => {
+//   if (judgePlatform('weapp')) {
+//     const { page } = Taro.getCurrentInstance()
+//     gridScrollViewRef.current = page!.selectComponent!('#grid-scroll-view')
+//   }
+// }, [])
 Component({
   /**
    * 用来接收父组件传来的属性
