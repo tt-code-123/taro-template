@@ -24,8 +24,14 @@ interface IMiniOpenButton {
   height?: number;
   /**微信sdk是否已经初始完成，h5必传 */
   isInitWX?: number;
+  /**跳转目标程序携带的参数 JSON字符串格式 */
+  extraData?: object;
+  /**是否能半屏跳转 */
+  embedded?: boolean;
+  /**是否携带token跳转 */
+  needToken?: boolean;
 }
-
+declare const wx: any;
 /**
  * 小程序跳转组件
  */
@@ -37,9 +43,12 @@ const MiniOpenButton: React.FC<IMiniOpenButton> = ({
   width,
   height, // 必传，因为button与children同级，且定位（覆盖）在children之上，经过微信初始化后不可使用100%
   isInitWX,
+  needToken = false,
+  embedded = true,
 }) => {
   const lunchRef = useRef<any>();
   const isWechat = useRef(isWeChatBrowser());
+  const isLoadingRef = useRef(false);
 
   useEffect(() => {
     if (!isInitWX) {
@@ -70,10 +79,64 @@ const MiniOpenButton: React.FC<IMiniOpenButton> = ({
   };
 
   const onClick = () => {
+    if (isLoadingRef.current) {
+      return;
+    }
     const ENV_TYPE = Taro.getEnv();
     // 小程序环境
     if (ENV_TYPE === 'WEAPP') {
-      Taro.navigateToMiniProgram({ appId: appid, path });
+      isLoadingRef.current = true;
+      let extraData = {};
+      if (needToken) {
+        const token = Taro.getStorageSync('token');
+        if (!token) {
+          Taro.showModal({
+            title: '提示',
+            content: '您还没登录，是否需要登录',
+            success: (res) => {
+              console.log(res);
+              if (res.confirm) {
+                Taro.navigateTo({
+                  url: '/pages/login/index',
+                });
+              }
+            },
+            complete() {
+              isLoadingRef.current = false;
+            },
+          });
+          return;
+        }
+        extraData = {
+          token: Taro.getStorageSync('token'),
+        };
+      }
+      const accountInfo = wx.getAccountInfoSync();
+      const envVersion = accountInfo.miniProgram.envVersion;
+      console.log(envVersion, '====');
+      if (embedded) {
+        Taro.openEmbeddedMiniProgram({
+          appId: appid,
+          path,
+          extraData,
+          envVersion,
+          allowFullScreen: true,
+          noRelaunchIfPathUnchanged: false,
+          complete() {
+            isLoadingRef.current = false;
+          },
+        });
+      } else {
+        Taro.navigateToMiniProgram({
+          appId: appid,
+          path,
+          extraData,
+          envVersion: 'release',
+          complete() {
+            isLoadingRef.current = false;
+          },
+        });
+      }
       return;
     }
     // web环境且非微信浏览器
@@ -90,7 +153,6 @@ const MiniOpenButton: React.FC<IMiniOpenButton> = ({
       </View>
     );
   }
-
   return (
     <View style={{ position: 'relative' }} className={className}>
       <View
