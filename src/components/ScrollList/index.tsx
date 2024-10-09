@@ -226,7 +226,7 @@ const ScrollList: React.ForwardRefRenderFunction<IRefProps<any>, IProps<any>> = 
       style={{
         ...((style as React.CSSProperties) || {}),
         height: height,
-        textAlign: col === 1 ? 'left' : 'center',
+        textAlign: col === 1 ? 'left' : 'justify',
       }}
       className={`${styles.scrollListWrap} ${!isScroll ? styles.noScroll : ''} ${className || ''}`}
       {...remainProps}

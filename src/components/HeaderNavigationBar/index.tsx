@@ -1,6 +1,6 @@
 import React from 'react';
 import Taro from '@tarojs/taro';
-import { ArrowLeft, Home } from '@nutui/icons-react-taro';
+import { ArrowLeft } from '@nutui/icons-react-taro';
 import { View, Text } from '@tarojs/components';
 
 import { getMenuButtonBoundingClientRect } from '@/utils';
@@ -16,9 +16,19 @@ interface IProps {
    * 导航栏左侧内容
    */
   navigationBarLeft?: React.ReactElement;
+  titleStyle?: React.CSSProperties;
+  // 是否显示背景颜色
+  showBg?: boolean;
+  wrapStyle?: React.CSSProperties;
 }
 
-const HeaderNavigationBar: React.FC<IProps> = ({ title, navigationBarLeft }) => {
+const HeaderNavigationBar: React.FC<IProps> = ({
+  title,
+  showBg,
+  navigationBarLeft,
+  titleStyle,
+  wrapStyle,
+}) => {
   const rectInfo = getMenuButtonBoundingClientRect();
 
   function handleBack() {
@@ -27,27 +37,25 @@ const HeaderNavigationBar: React.FC<IProps> = ({ title, navigationBarLeft }) => 
     }
   }
 
-  function handleGoHome() {
-    Taro.switchTab({
-      url: '/pages/home/index',
-    });
-  }
-
   return (
     <View
-      className={styles.headerNavigationWrap}
-      style={{ marginTop: rectInfo.top, height: rectInfo.height }}
+      className={`${styles.headerNavigationWrap} ${showBg && styles.showBg}`}
+      style={{
+        paddingTop: rectInfo.top,
+        height: rectInfo.height,
+        ...(wrapStyle || {}),
+      }}
     >
       {navigationBarLeft ? (
         <View className={styles.navigationBarLeft}>{navigationBarLeft}</View>
       ) : (
         <View className={styles.headerOperate}>
-          <ArrowLeft size={16} color="rgba(0, 0, 0, 0.90)" onClick={handleBack} />
-          <View className={styles.divider} />
-          <Home size={16} color="rgba(0, 0, 0, 0.90)" onClick={handleGoHome} />
+          <ArrowLeft size={18} color="#000000" onClick={handleBack} />
         </View>
       )}
-      <Text className={styles.headerTitle}>{title}</Text>
+      <Text className={styles.headerTitle} style={{ ...(titleStyle || {}) }}>
+        {title}
+      </Text>
     </View>
   );
 };
