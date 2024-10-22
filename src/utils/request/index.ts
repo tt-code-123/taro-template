@@ -62,9 +62,24 @@ class Request {
             duration: 2000,
           });
           Taro.removeStorageSync('token');
-          Taro.redirectTo({
-            url: '/pages/login/index',
-          });
+          setTimeout(() => {
+            const pages = Taro.getCurrentPages();
+            // 防止在登录页重复跳转
+            if (judgePlatform('h5')) {
+              if (window.location.href.includes('login')) {
+                return;
+              }
+            } else {
+              if (pages.length > 1) {
+                if (pages[pages.length - 1].route?.includes('login')) {
+                  return;
+                }
+              }
+            }
+            Taro.redirectTo({
+              url: '/pages/login/index',
+            });
+          }, 500);
           return;
         }
 
