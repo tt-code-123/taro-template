@@ -78,3 +78,33 @@ export function sleep(time: number): Promise<unknown> {
     setTimeout(resolve, time);
   });
 }
+
+export function rpxToPx(rpx: number) {
+  const info = Taro.getSystemInfoSync();
+  const screenWidth = info.screenWidth; // 屏幕宽度，单位是px
+  return rpx * (screenWidth / 750);
+}
+
+export function pxToRpx(px: number) {
+  const info = Taro.getSystemInfoSync();
+  const screenWidth = info.screenWidth; // 屏幕宽度，单位是px
+  return px / (screenWidth / 750);
+}
+
+/**
+ * 返回底部安全距离
+ * @param {*} showTabBar
+ */
+export function getSafeBottom() {
+  const systemInfo = Taro.getSystemInfoSync();
+  const { screenHeight, safeArea } = systemInfo;
+
+  if (safeArea) {
+    // 计算安全区底部距离
+    const safeBottom = screenHeight - safeArea.bottom;
+    return safeBottom;
+  }
+
+  // 如果没有 safeArea 属性，提供默认值（部分老设备可能没有）
+  return 0;
+}
